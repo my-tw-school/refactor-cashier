@@ -33,13 +33,9 @@ public class OrderReceipt {
             output.append('\n');
         }
 
-        double tot = order.getTotal();
+        output.append("Sales Tax").append('\t').append(order.getTotalSalesTax());
 
-        double totSalesTx = order.getTotalSalesTax();
-
-        output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        output.append("Total Amount").append('\t').append(tot);
+        output.append("Total Amount").append('\t').append(order.getTotal());
         return output.toString();
     }
 
