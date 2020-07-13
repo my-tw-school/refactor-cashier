@@ -44,11 +44,9 @@ public class OrderReceipt {
     }
 
     private double getTotal() {
-        double tot = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            tot += lineItem.totalAmount() + lineItem.getSalesTax();
-        }
-        return tot;
+        return order.getLineItems()
+                .stream()
+                .reduce(0d, (acc, item) -> item.totalAmount() + item.getSalesTax() + acc, Double::sum);
     }
 
 }
