@@ -17,16 +17,11 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        // print headers
         output.append("======Printing Orders======\n");
 
-        // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
         output.append(order.getCustomerName());
         output.append(order.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
 
-        // prints lineItems
         double totSalesTx = 0d;
         double tot = 0d;
         for (LineItem lineItem : order.getLineItems()) {
@@ -47,10 +42,8 @@ public class OrderReceipt {
             tot += lineItem.totalAmount() + salesTax;
         }
 
-        // prints the state tax
         output.append("Sales Tax").append('\t').append(totSalesTx);
 
-        // print total amount
         output.append("Total Amount").append('\t').append(tot);
         return output.toString();
     }
