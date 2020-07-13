@@ -28,4 +28,10 @@ public class Order {
     public double getTotalSalesTax() {
         return getLineItems().stream().reduce(0d, (acc, item) -> item.getSalesTax() + acc, Double::sum);
     }
+
+    public double getTotal() {
+        return getLineItems()
+                .stream()
+                .reduce(0d, (acc, item) -> item.totalAmount() + item.getSalesTax() + acc, Double::sum);
+    }
 }

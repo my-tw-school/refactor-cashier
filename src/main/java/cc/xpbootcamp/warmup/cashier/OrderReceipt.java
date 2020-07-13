@@ -33,7 +33,7 @@ public class OrderReceipt {
             output.append('\n');
         }
 
-        double tot = getTotal();
+        double tot = order.getTotal();
 
         double totSalesTx = order.getTotalSalesTax();
 
@@ -41,12 +41,6 @@ public class OrderReceipt {
 
         output.append("Total Amount").append('\t').append(tot);
         return output.toString();
-    }
-
-    private double getTotal() {
-        return order.getLineItems()
-                .stream()
-                .reduce(0d, (acc, item) -> item.totalAmount() + item.getSalesTax() + acc, Double::sum);
     }
 
 }
