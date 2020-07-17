@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.containsString;
 class OrderReceiptTest {
 
     @Test
-    public void shouldPrintLineItemAndSalesTaxInformation() {
+    public void should_print_line_item_and_sales_tax_information() {
         List<LineItem> lineItems = new ArrayList<LineItem>() {{
             add(new LineItem("milk", 10.0, 2));
             add(new LineItem("biscuits", 5.0, 5));
@@ -29,7 +29,7 @@ class OrderReceiptTest {
     }
 
     @Test
-    public void shouldPrintSplitLineOnReceiptHeaderAndFooter() {
+    public void should_print_split_line_on_receipt_header_and_footer() {
         OrderReceipt orderReceipt = new OrderReceipt(new Order(new ArrayList<>()));
 
         String output = orderReceipt.printReceipt();
