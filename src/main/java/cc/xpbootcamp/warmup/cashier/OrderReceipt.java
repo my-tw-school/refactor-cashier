@@ -23,10 +23,13 @@ public class OrderReceipt {
 
         output.append(getReceiptContent());
 
-        output.append("Sales Tax").append('\t').append(order.getTotalSalesTax());
-
-        output.append("Total Amount").append('\t').append(order.getTotal());
+        output.append(getReceiptFooter());
         return output.toString();
+    }
+
+    private String getReceiptFooter() {
+        return "Sales Tax" + '\t' + order.getTotalSalesTax() +
+                "Total Amount" + '\t' + order.getTotal();
     }
 
     private String getReceiptContent() {
