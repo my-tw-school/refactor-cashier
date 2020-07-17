@@ -31,4 +31,15 @@ public class LineItem {
 	public double getSalesTax() {
 		return totalAmount() * .10;
 	}
+
+	public String toReceiptContent() {
+		return getDescription() +
+				'\t' +
+				getPrice() +
+				'\t' +
+				getQuantity() +
+				'\t' +
+				totalAmount() +
+				'\n';
+	}
 }
