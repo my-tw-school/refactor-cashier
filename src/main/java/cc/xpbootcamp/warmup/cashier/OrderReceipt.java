@@ -37,9 +37,7 @@ public class OrderReceipt {
     }
 
     private String printReceiptHeader() {
-        return "======Printing Orders======\n" +
-                order.getCustomerName() +
-                order.getCustomerAddress();
+        return "======Printing Orders======\n";
     }
 
 }
