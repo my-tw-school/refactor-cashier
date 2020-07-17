@@ -28,7 +28,8 @@ public class OrderReceipt {
     }
 
     private String printReceiptFooter() {
-        return "Sales Tax: "  + order.getTotalSalesTax() + '\n' +
+        return "--------------------------------\n" +
+                "Sales Tax: "  + order.getTotalSalesTax() + '\n' +
                 "Total Amount: " + order.getTotal() + '\n';
     }
 
@@ -37,7 +38,7 @@ public class OrderReceipt {
     }
 
     private String printReceiptHeader() {
-        return "======Printing Orders======\n";
+        return "======Lao Wang supermarket, trustworthy======\n";
     }
 
 }

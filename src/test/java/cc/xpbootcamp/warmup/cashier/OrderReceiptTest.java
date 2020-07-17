@@ -27,4 +27,13 @@ class OrderReceiptTest {
         assertThat(output, containsString("Sales Tax: 6.5\n"));
         assertThat(output, containsString("Total Amount: 71.5\n"));
     }
+
+    @Test
+    public void shouldPrintSplitLineOnReceiptHeaderAndFooter() {
+        OrderReceipt orderReceipt = new OrderReceipt(new Order(new ArrayList<>()));
+
+        String output = orderReceipt.printReceipt();
+        assertThat(output, containsString("Lao Wang supermarket, trustworthy"));
+        assertThat(output, containsString("--------------------------------\n"));
+    }
 }
