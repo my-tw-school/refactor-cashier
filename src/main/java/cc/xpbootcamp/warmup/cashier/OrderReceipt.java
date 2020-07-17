@@ -28,8 +28,8 @@ public class OrderReceipt {
     }
 
     private String printReceiptFooter() {
-        return "Sales Tax" + '\t' + order.getTotalSalesTax() +
-                "Total Amount" + '\t' + order.getTotal();
+        return "Sales Tax: "  + order.getTotalSalesTax() + '\n' +
+                "Total Amount: " + order.getTotal() + '\n';
     }
 
     private String printReceiptContent() {

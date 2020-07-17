@@ -34,12 +34,10 @@ public class LineItem {
 
 	public String toReceiptContent() {
 		return getDescription() +
-				'\t' +
+				", " +
 				getPrice() +
-				'\t' +
+				" x " +
 				getQuantity() +
-				'\t' +
-				totalAmount() +
 				'\n';
 	}
 }
