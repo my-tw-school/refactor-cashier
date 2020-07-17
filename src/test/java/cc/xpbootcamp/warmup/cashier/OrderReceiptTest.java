@@ -42,11 +42,35 @@ class OrderReceiptTest {
 
     @Test
     public void should_print_date_time_information() {
-        OrderReceipt orderReceipt = new OrderReceipt(new Order(new ArrayList<>()));
-        Instant.now(Clock.fixed(
+        Clock clock = Clock.fixed(
                 Instant.parse("2020-07-17T00:00:00Z"),
-                ZoneOffset.UTC));
+                ZoneOffset.UTC);
+
+        OrderReceipt orderReceipt = new OrderReceipt(new Order(new ArrayList<>()), clock);
+
         String output = orderReceipt.printReceipt();
         assertThat(output, containsString("2020-07-17, Friday\n"));
+    }
+
+    @Test
+    public void should_print_discount_information_given_today_is_wednesday() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {{
+            add(new LineItem("milk", 10.0, 2));
+            add(new LineItem("biscuits", 5.0, 5));
+            add(new LineItem("chocolate", 20.0, 1));
+        }};
+        Clock clock = Clock.fixed(
+                Instant.parse("2020-07-15T00:00:00Z"),
+                ZoneOffset.UTC);
+        OrderReceipt receipt = new OrderReceipt(new Order(lineItems), clock);
+
+
+        String output = receipt.printReceipt();
+        assertThat(output, containsString("milk, 10.0 x 2\n"));
+        assertThat(output, containsString("biscuits, 5.0 x 5\n"));
+        assertThat(output, containsString("chocolate, 20.0 x 1\n"));
+        assertThat(output, containsString("Sales Tax: 6.5\n"));
+        assertThat(output, containsString("Discount: 1.43\n"));
+        assertThat(output, containsString("Total Amount: 70.07\n"));
     }
 }

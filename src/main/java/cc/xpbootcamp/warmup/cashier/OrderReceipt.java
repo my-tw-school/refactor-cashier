@@ -1,5 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.Clock;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
@@ -13,28 +15,46 @@ import java.util.stream.Collectors;
  */
 public class OrderReceipt {
     private static final String DATE_PATTERN = "yyyy-MM-dd, EEEE";
+    private final Clock clock;
 
     private Order order;
 
     public OrderReceipt(Order order) {
         this.order = order;
+        clock = Clock.systemDefaultZone();
+    }
+
+    public OrderReceipt(Order order, Clock clock) {
+        this.order = order;
+        this.clock = clock;
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
-
-        output.append(printReceiptHeader());
-
-        output.append(printReceiptContent());
-
-        output.append(printReceiptFooter());
-        return output.toString();
+        return printReceiptHeader() +
+                printReceiptContent() +
+                printReceiptFooter();
     }
 
     private String printReceiptFooter() {
         return "--------------------------------\n" +
                 "Sales Tax: "  + order.getTotalSalesTax() + '\n' +
-                "Total Amount: " + order.getTotal() + '\n';
+                printDiscount() +
+                "Total Amount: " + (order.getTotal() - calculateDiscount()) + '\n';
+    }
+
+    private String printDiscount() {
+        if (isWednesday()) {
+            return "Discount: " + calculateDiscount() + '\n';
+        }
+        return "";
+    }
+
+    private double calculateDiscount() {
+        return isWednesday() ? order.getTotal() * 0.02 : 0.0;
+    }
+
+    private boolean isWednesday() {
+        return LocalDate.now(clock).getDayOfWeek() == DayOfWeek.WEDNESDAY;
     }
 
     private String printReceiptContent() {
@@ -48,7 +68,7 @@ public class OrderReceipt {
 
     private String printCurrentDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-        return LocalDate.now().format(formatter);
+        return LocalDate.now(clock).format(formatter);
     }
 
 }
