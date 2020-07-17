@@ -2,6 +2,9 @@ package cc.xpbootcamp.warmup.cashier;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +38,15 @@ class OrderReceiptTest {
         String output = orderReceipt.printReceipt();
         assertThat(output, containsString("Lao Wang supermarket, trustworthy"));
         assertThat(output, containsString("--------------------------------\n"));
+    }
+
+    @Test
+    public void should_print_date_time_information() {
+        OrderReceipt orderReceipt = new OrderReceipt(new Order(new ArrayList<>()));
+        Instant.now(Clock.fixed(
+                Instant.parse("2020-07-17T00:00:00Z"),
+                ZoneOffset.UTC));
+        String output = orderReceipt.printReceipt();
+        assertThat(output, containsString("2020-07-17, Friday\n"));
     }
 }

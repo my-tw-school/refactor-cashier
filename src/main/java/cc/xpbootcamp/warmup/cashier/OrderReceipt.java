@@ -1,5 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 /**
@@ -10,6 +12,8 @@ import java.util.stream.Collectors;
  *
  */
 public class OrderReceipt {
+    private static final String DATE_PATTERN = "yyyy-MM-dd, EEEE";
+
     private Order order;
 
     public OrderReceipt(Order order) {
@@ -38,7 +42,13 @@ public class OrderReceipt {
     }
 
     private String printReceiptHeader() {
-        return "======Lao Wang supermarket, trustworthy======\n";
+        return "======Lao Wang supermarket, trustworthy======\n" +
+                printCurrentDate() + '\n';
+    }
+
+    private String printCurrentDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
+        return LocalDate.now().format(formatter);
     }
 
 }
