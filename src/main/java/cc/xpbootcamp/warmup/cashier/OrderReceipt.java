@@ -19,24 +19,24 @@ public class OrderReceipt {
     public String printReceipt() {
         StringBuilder output = new StringBuilder();
 
-        output.append(getReceiptHeader());
+        output.append(printReceiptHeader());
 
-        output.append(getReceiptContent());
+        output.append(printReceiptContent());
 
-        output.append(getReceiptFooter());
+        output.append(printReceiptFooter());
         return output.toString();
     }
 
-    private String getReceiptFooter() {
+    private String printReceiptFooter() {
         return "Sales Tax" + '\t' + order.getTotalSalesTax() +
                 "Total Amount" + '\t' + order.getTotal();
     }
 
-    private String getReceiptContent() {
+    private String printReceiptContent() {
         return order.getLineItems().stream().map(LineItem::toReceiptContent).collect(Collectors.joining());
     }
 
-    private String getReceiptHeader() {
+    private String printReceiptHeader() {
         return "======Printing Orders======\n" +
                 order.getCustomerName() +
                 order.getCustomerAddress();
