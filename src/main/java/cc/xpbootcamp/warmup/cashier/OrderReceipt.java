@@ -20,20 +20,24 @@ public class OrderReceipt {
         output.append(getReceiptHeader());
 
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
+            output.append(getLineItemContent(lineItem));
         }
 
         output.append("Sales Tax").append('\t').append(order.getTotalSalesTax());
 
         output.append("Total Amount").append('\t').append(order.getTotal());
         return output.toString();
+    }
+
+    private String getLineItemContent(LineItem lineItem) {
+        return lineItem.getDescription() +
+                '\t' +
+                lineItem.getPrice() +
+                '\t' +
+                lineItem.getQuantity() +
+                '\t' +
+                lineItem.totalAmount() +
+                '\n';
     }
 
     private String getReceiptHeader() {
